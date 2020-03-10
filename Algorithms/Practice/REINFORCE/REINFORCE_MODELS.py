@@ -38,7 +38,7 @@ class REINFORCE():
 
 class REINFORCE_BASELINE(REINFORCE):
     def __init__(self, obs_dim, act_dim, p_learning_rate, v_learning_rate):
-        REINFORCE.__init__(self, obs_dim, act_dim, p_learning_rate)
+        super().__init__(obs_dim, act_dim, p_learning_rate)
 
         self.rtg_ph = tf.placeholder(shape=(None, ), dtype=tf.float32, name='rtg')
 
@@ -50,12 +50,12 @@ class REINFORCE_BASELINE(REINFORCE):
         self.sess.run(tf.global_variables_initializer())
 
     def GetAction(self, obs):
-        act = REINFORCE.GetAction(self, obs)
+        act = super().GetAction(obs)
         val = self.sess.run(self.s_values, feed_dict={self.obs_input: obs})
         return act, val
 
     def Train(self, obs_batch, act_batch, ret_batch, rtg_batch):
-        REINFORCE.Train(self, obs_batch, act_batch, ret_batch)
+        super().Train(obs_batch, act_batch, ret_batch)
         self.sess.run(self.v_opt, feed_dict={self.obs_input: obs_batch, self.rtg_ph: rtg_batch})
 
 
