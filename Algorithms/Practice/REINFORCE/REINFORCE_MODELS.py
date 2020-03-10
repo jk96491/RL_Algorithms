@@ -43,7 +43,7 @@ class REINFORCE_BASELINE(REINFORCE):
         self.rtg_ph = tf.placeholder(shape=(None, ), dtype=tf.float32, name='rtg')
 
         self.s_values = tf.squeeze(mlp(self.obs_input, [64], 1, activation=tf.nn.tanh))
-        self.v_loss = tf.reduce_mean((self.rtg_ph - self.s_values) ** 2)
+        self.v_loss = tf.reduce_mean(tf.square(self.rtg_ph - self.s_values))
         self.v_opt = tf.train.AdamOptimizer(v_learning_rate).minimize(self.v_loss)
 
         self.sess = tf.Session()
@@ -57,7 +57,7 @@ class REINFORCE_BASELINE(REINFORCE):
     def Train(self, obs_batch, act_batch, ret_batch, rtg_batch):
         super().Train(obs_batch, act_batch, ret_batch)
         self.sess.run(self.v_opt, feed_dict={self.obs_input: obs_batch, self.rtg_ph: rtg_batch})
-        
+
 
 def discounted_reward(rews, gamma):
     rtg = np.zeros_like(rews, dtype=np.float32)
