@@ -16,7 +16,7 @@ class REINFORCE():
 
         # policy
         self.p_logits = mlp(self.obs_input, [64], act_dim, activation=tf.tanh)
-        self. act_multn = tf.squeeze(tf.random.multinomial(self.p_logits, 1))
+        self.act_multn = tf.squeeze(tf.random.multinomial(self.p_logits, 1))
         self.action_mask = tf.one_hot(self.act_input, depth=act_dim)
 
         self.p_log = tf.reduce_sum(self.action_mask * tf.nn.log_softmax(self.p_logits), axis=1)
@@ -57,8 +57,7 @@ class REINFORCE_BASELINE(REINFORCE):
     def Train(self, obs_batch, act_batch, ret_batch, rtg_batch):
         super().Train(obs_batch, act_batch, ret_batch)
         self.sess.run(self.v_opt, feed_dict={self.obs_input: obs_batch, self.rtg_ph: rtg_batch})
-
-
+        
 
 def discounted_reward(rews, gamma):
     rtg = np.zeros_like(rews, dtype=np.float32)
