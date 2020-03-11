@@ -31,9 +31,6 @@ if __name__ == '__main__':
     train_ep_len = []
     step_count = 0
 
-    sess = tf.Session()
-    sess.run(tf.global_variables_initializer())
-
     for episode in range(num_epochs):
         obs = env.reset()
 

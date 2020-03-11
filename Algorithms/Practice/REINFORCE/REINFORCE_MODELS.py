@@ -12,7 +12,7 @@ class REINFORCE():
     def __init__(self, obs_dim, act_dim, learning_rate):
         self.obs_input = tf.placeholder(shape=[None, obs_dim[0]], dtype=tf.float32, name='obs')
         self.act_input = tf.placeholder(shape=[None, ], dtype=tf.int32, name='act')
-        self.return_input = tf.placeholder(shape=[None, ], dtype=tf.float32, name='return')
+        self.return_input = tf.placeholder(shape=[None, ], dtype=tf.float32, name='return')     # G
 
         # policy
         self.p_logits = mlp(self.obs_input, [64], act_dim, activation=tf.tanh)
@@ -42,8 +42,8 @@ class REINFORCE_BASELINE(REINFORCE):
 
         self.rtg_ph = tf.placeholder(shape=(None, ), dtype=tf.float32, name='rtg')
 
-        self.s_values = tf.squeeze(mlp(self.obs_input, [64], 1, activation=tf.nn.tanh))
-        self.v_loss = tf.reduce_mean(tf.square(self.rtg_ph - self.s_values))
+        self.s_values = tf.squeeze(mlp(self.obs_input, [64], 1, activation=tf.nn.tanh))     # V
+        self.v_loss = tf.reduce_mean(tf.square(self.rtg_ph - self.s_values))        # G - V
         self.v_opt = tf.train.AdamOptimizer(v_learning_rate).minimize(self.v_loss)
 
         self.sess = tf.Session()
@@ -89,8 +89,7 @@ class Buffer():
                 self.ret.extend(rtg)
 
     def get_batch(self):
-        b_ret = self.ret
-        return self.obs, self.act, b_ret, self.rtg;
+        return self.obs, self.act, self.ret, self.rtg
 
     def __len__(self):
         if self.use_baseLine:
