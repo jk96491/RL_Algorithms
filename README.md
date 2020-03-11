@@ -8,3 +8,7 @@ https://github.com/jk96491/RL_Algorithms/tree/master/Algorithms/Practice/DQN
 # REINFORCE, REINFORCE-Baseline
 CartPole REINFORCE, CartPole REINFORCE-Baseline
 https://github.com/jk96491/RL_Algorithms/tree/master/Algorithms/Practice/REINFORCE
+
+# DDPG
+CartPole DDPG
+https://github.com/jk96491/RL_Algorithms/tree/master/Algorithms/Practice/DDPG
