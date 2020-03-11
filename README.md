@@ -3,12 +3,11 @@
 
 # DQN
 CartPole DQN
-https://github.com/jk96491/RL_Algorithms/tree/master/Algorithms/Practice/DQN
+https://blog.naver.com/jk96491/221846530113
 
 # REINFORCE, REINFORCE-Baseline
 CartPole REINFORCE, CartPole REINFORCE-Baseline
-https://github.com/jk96491/RL_Algorithms/tree/master/Algorithms/Practice/REINFORCE
 
 # DDPG
 CartPole DDPG
-https://github.com/jk96491/RL_Algorithms/tree/master/Algorithms/Practice/DDPG
+https://blog.naver.com/jk96491/221848853398
