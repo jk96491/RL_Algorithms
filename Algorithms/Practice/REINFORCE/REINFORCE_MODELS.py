@@ -8,11 +8,11 @@ def mlp(x, hidden_layers, output_size, activation=tf.nn.relu, last_activation=No
         return tf.layers.dense(x, units=output_size, activation=last_activation)
 
 
-class REINFORCE():
+class REINFORCE:
     def __init__(self, obs_dim, act_dim, learning_rate):
         self.obs_input = tf.placeholder(shape=[None, obs_dim[0]], dtype=tf.float32, name='obs')
         self.act_input = tf.placeholder(shape=[None, ], dtype=tf.int32, name='act')
-        self.return_input = tf.placeholder(shape=[None, ], dtype=tf.float32, name='return')     # G
+        self.return_input = tf.placeholder(shape=[None, ], dtype=tf.float32, name='return')
 
         # policy
         self.p_logits = mlp(self.obs_input, [64], act_dim, activation=tf.tanh)
@@ -33,17 +33,18 @@ class REINFORCE():
         return action
 
     def Train(self, obs_batch, act_batch, ret_batch):
-        self.sess.run(self.p_opt, feed_dict={self.obs_input: obs_batch, self.act_input: act_batch, self.return_input: ret_batch})
+        self.sess.run(self.p_opt,
+                      feed_dict={self.obs_input: obs_batch, self.act_input: act_batch, self.return_input: ret_batch})
 
 
 class REINFORCE_BASELINE(REINFORCE):
     def __init__(self, obs_dim, act_dim, p_learning_rate, v_learning_rate):
         super().__init__(obs_dim, act_dim, p_learning_rate)
 
-        self.rtg_ph = tf.placeholder(shape=(None, ), dtype=tf.float32, name='rtg')
+        self.reward_target_ph = tf.placeholder(shape=(None,), dtype=tf.float32, name='rtg')
 
-        self.s_values = tf.squeeze(mlp(self.obs_input, [64], 1, activation=tf.nn.tanh))     # V
-        self.v_loss = tf.reduce_mean(tf.square(self.rtg_ph - self.s_values))        # G - V
+        self.s_values = tf.squeeze(mlp(self.obs_input, [64], 1, activation=tf.nn.tanh))
+        self.v_loss = tf.reduce_mean(tf.square(self.reward_target_ph - self.s_values))
         self.v_opt = tf.train.AdamOptimizer(v_learning_rate).minimize(self.v_loss)
 
         self.sess = tf.Session()
@@ -56,7 +57,7 @@ class REINFORCE_BASELINE(REINFORCE):
 
     def Train(self, obs_batch, act_batch, ret_batch, rtg_batch):
         super().Train(obs_batch, act_batch, ret_batch)
-        self.sess.run(self.v_opt, feed_dict={self.obs_input: obs_batch, self.rtg_ph: rtg_batch})
+        self.sess.run(self.v_opt, feed_dict={self.obs_input: obs_batch, self.reward_target_ph: rtg_batch})
 
 
 def discounted_reward(rews, gamma):
@@ -97,4 +98,3 @@ class Buffer():
         else:
             assert (len(self.obs) == len(self.act) == len(self.ret))
         return len(self.obs)
-

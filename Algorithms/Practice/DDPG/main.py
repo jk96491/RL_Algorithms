@@ -1,22 +1,24 @@
 import gym
 from Practice.DDPG.DDPG import DDPGAgent
 import numpy as np
+from collections import deque
 
 env = gym.make("CartPole-v0")
 
 train_mode = True
 load_model = False
 
-num_epochs = 500
+num_epochs = 5000
 discount_factor = 0.99
 steps_per_epoch = 100
-from collections import deque
 step_count = 0
 step = 0
 
-start_train_episode = 100
+start_train_episode = 50
 
-print_interval = 50
+print_interval = 1
+
+loss = None
 
 if __name__ == '__main__':
     state_size = env.observation_space.shape[0]
@@ -30,8 +32,10 @@ if __name__ == '__main__':
 
         state = env.reset()
         done = False
+        step = 0
 
         while not done:
+            env.render()
             step += 1
 
             action = agent.get_action([state])[0]
@@ -43,9 +47,8 @@ if __name__ == '__main__':
             state = next_state
 
             if episode > start_train_episode and train_mode:
-                agent.train_model()
-
+                loss = agent.train_model()
 
         if episode % print_interval == 0 and episode != 0:
-            print("step: {} / episode: {} / reward: {:.3f} ".format
-                  (step, episode, np.mean(rewards)))
+            print("step: {} / episode: {} / loss: {} ".format(step, episode, loss))
+
