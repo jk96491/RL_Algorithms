@@ -39,7 +39,6 @@ class Actor(object):
         mu_output = Lambda(lambda x: x * self.action_bound)(out_mu)
         model = Model(state_input, [mu_output, std_output])
         model.summary()
-
         return model, model.trainable_weights, state_input
 
     def log_pdf(self, mu, std, action):
