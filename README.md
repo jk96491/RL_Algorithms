@@ -14,8 +14,8 @@ https://blog.naver.com/jk96491/221846530113
 CartPole REINFORCE, CartPole REINFORCE-Baseline
 
 https://blog.naver.com/jk96491/221964240769 - REINFORCE 개념설명
-
-https://blog.naver.com/jk96491/221851464029
+https://blog.naver.com/jk96491/221965998206 - REINFORCE Baseline 개념설명
+https://blog.naver.com/jk96491/221851464029 - CartPole 적용
 
 # DDPG
 CartPole DDPG
