@@ -23,3 +23,9 @@ https://blog.naver.com/jk96491/221851464029 - CartPole 적용
 CartPole DDPG
 
 https://blog.naver.com/jk96491/221848853398
+
+# Actor-critic
+Pendulum-v0
+
+https://blog.naver.com/jk96491/221972163239
+
