@@ -8,7 +8,7 @@
 # DQN
 CartPole DQN
 
-https://blog.naver.com/jk96491/221846530113
+https://blog.naver.com/jk96491/221846530113 - DQN 개념설명
 
 # REINFORCE, REINFORCE-Baseline
 CartPole REINFORCE, CartPole REINFORCE-Baseline
@@ -22,10 +22,10 @@ https://blog.naver.com/jk96491/221851464029 - CartPole 적용
 # DDPG
 CartPole DDPG
 
-https://blog.naver.com/jk96491/221848853398
+https://blog.naver.com/jk96491/221848853398 - DDPG 개념
 
 # Actor-critic
 Pendulum-v0
 
-https://blog.naver.com/jk96491/221972163239 - Advantage Actor Critic(A2C)
+https://blog.naver.com/jk96491/221972163239 - Advantage Actor Critic(A2C) 개념 설명
 
