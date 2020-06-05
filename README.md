@@ -29,3 +29,10 @@ Pendulum-v0
 
 https://blog.naver.com/jk96491/221972163239 - Advantage Actor Critic(A2C) 개념 설명
 
+# A3C(Asynchronous Advantage Actor-Critic)
+Pendulum-v0
+
+https://blog.naver.com/jk96491/221990932299 - A3C 개념 설명
+
+
+
