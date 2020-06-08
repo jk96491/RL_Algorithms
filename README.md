@@ -10,10 +10,11 @@ CartPole DQN
 
 https://blog.naver.com/jk96491/221846530113 - DQN 개념설명
 
-# PPO(Proximal Policy Optimization)
+# PPO (Proximal Policy Optimization)
 Pendulum-v0
 
 https://blog.naver.com/jk96491/221992903677 - PPO 등장배경
+
 https://blog.naver.com/jk96491/221993897641 - PPO 적용
 
 # DDPG
