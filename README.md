@@ -1,9 +1,9 @@
 # RL_Algorithms
-여러가지 강화학습 알고리즘 제공.
+Provides various reinforcement learning algorithms.
 
-개인 공부의 목적으로 제작하였습니다.
+Created for personal study purposes.
 
-아래 링크들도 추가하였으니 필요하시면 같이 참조 하시길 바랍니다
+The links below have also been added, so please refer to them if necessary.
 
 # DQN
 CartPole DQN
