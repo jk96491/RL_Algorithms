@@ -47,6 +47,8 @@ class A2Cagnet(object):
             time, episode_reward, done = 0, 0, False
 
             state = self.env.reset()
+            critic_loss = 0
+            actor_loss = 0
 
             while not done:
                 self.env.render()
@@ -85,14 +87,14 @@ class A2Cagnet(object):
 
                 batch_state, batch_action, batch_td_target, batch_advantage = [], [], [], []
 
-                self.critic.Learn(convertToTensorInput(states, self.state_dim, states.shape[0]), td_targets)
-                self.actor.Learn(convertToTensorInput(states, self.state_dim, states.shape[0]), actions, advantages)
+                critic_loss = self.critic.Learn(convertToTensorInput(states, self.state_dim, states.shape[0]), td_targets)
+                actor_loss = self.actor.Learn(convertToTensorInput(states, self.state_dim, states.shape[0]), actions, advantages)
 
                 state = next_state[0]
                 episode_reward += reward[0]
                 time += 1
 
-            print('Episode: ', ep + 1, 'Time: ', time, 'Reward: ', episode_reward)
+            print('Episode: ', ep + 1, 'Time: ', time, 'Reward: ', episode_reward, 'actor loss', actor_loss.item(), 'critic loss', critic_loss.item())
 
             self.save_epi_reward.append(episode_reward)
 

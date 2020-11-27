@@ -67,8 +67,8 @@ class Actor(nn.Module):
         ratio = torch.exp(torch.mean(log_policy_pdf) - torch.mean(log_old_policy_pdf))
         clipped_ratio = ratio.clamp(1.0 - self.ratio_clipping, 1.0 + self.ratio_clipping)
 
-        ratio = torch.mean(ratio * advantages)
-        clipped_ratio = torch.mean(clipped_ratio * advantages)
+        ratio = torch.mean(-ratio * advantages)
+        clipped_ratio = torch.mean(-clipped_ratio * advantages)
 
         if ratio >= clipped_ratio:
             surrogate = clipped_ratio
