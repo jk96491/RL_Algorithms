@@ -1,9 +1,9 @@
 import random
 import tensorflow as tf
 import numpy as np
-from Practice.DDPG.ACModels import Actor
-from Practice.DDPG.ACModels import Critic
-from Practice.DDPG.Noise import OU_noise
+from Tensorflow.DDPG.ACModels import Actor
+from Tensorflow.DDPG.ACModels import Critic
+from Tensorflow.DDPG.Noise import OU_noise
 from collections import deque
 
 actor_lr = 1e-4

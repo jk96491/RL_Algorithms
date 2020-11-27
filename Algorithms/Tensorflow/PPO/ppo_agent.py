@@ -3,8 +3,8 @@ import tensorflow as tf
 import keras.backend as K
 import matplotlib.pyplot as plt
 
-from Practice.PPO.ppo_actor import Actor
-from Practice.PPO.PPOCritic import Critic
+from Tensorflow.PPO.ppo_actor import Actor
+from Tensorflow.PPO.PPOCritic import Critic
 
 
 class PPOagent(object):

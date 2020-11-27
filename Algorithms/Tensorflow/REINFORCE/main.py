@@ -1,8 +1,8 @@
 import gym
 import tensorflow as tf
-from Practice.REINFORCE.REINFORCE_MODELS import REINFORCE
-from Practice.REINFORCE.REINFORCE_MODELS import REINFORCE_BASELINE
-from Practice.REINFORCE.REINFORCE_MODELS import Buffer
+from Tensorflow.REINFORCE.REINFORCE_MODELS import REINFORCE
+from Tensorflow.REINFORCE.REINFORCE_MODELS import REINFORCE_BASELINE
+from Tensorflow.REINFORCE.REINFORCE_MODELS import Buffer
 import numpy as np
 
 num_epochs = 500

@@ -1,5 +1,5 @@
 import gym
-from Practice.A2C.a2c_agent import A2Cagnet
+from Tensorflow.A2C.a2c_agent import A2Cagnet
 
 
 def main():

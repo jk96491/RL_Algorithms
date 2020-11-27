@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import threading
 import multiprocessing
 
-from Practice.A3C.a3c_actor import Global_Actor, Worker_Actor
-from Practice.A3C.a3c_critic import Global_Critic, Worker_Critic
+from Tensorflow.A3C.a3c_actor import Global_Actor, Worker_Actor
+from Tensorflow.A3C.a3c_critic import Global_Critic, Worker_Critic
 
 global_episode_count = 0
 global_step = 0

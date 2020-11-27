@@ -1,5 +1,5 @@
 import gym
-from Practice.DDPG.DDPG import DDPGAgent
+from Tensorflow.DDPG.DDPG import DDPGAgent
 import numpy as np
 from collections import deque
 

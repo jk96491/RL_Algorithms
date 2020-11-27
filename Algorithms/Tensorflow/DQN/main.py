@@ -1,5 +1,5 @@
 import gym
-from Practice.DQN.DQN import DQNAgent
+from Tensorflow.DQN.DQN import DQNAgent
 import numpy as np
 
 env = gym.make("CartPole-v0")

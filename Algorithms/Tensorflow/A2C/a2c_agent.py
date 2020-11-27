@@ -3,8 +3,8 @@ import tensorflow as tf
 import keras.backend as K
 import matplotlib.pyplot as plt
 
-from Practice.A2C.a2c_actor import Actor
-from Practice.A2C.a2c_critic import Critic
+from Tensorflow.A2C.a2c_actor import Actor
+from Tensorflow.A2C.a2c_critic import Critic
 
 
 class A2Cagnet(object):
