@@ -64,7 +64,7 @@ class Actor(nn.Module):
         log_policy_pdf = self.log_pdf(mu, std, actions)
 
         self.optimizer.zero_grad()
-        loss = torch.sum(log_policy_pdf * advantages)
+        loss = torch.mean(log_policy_pdf * advantages)
         self.optimizer.step()
 
         return loss
