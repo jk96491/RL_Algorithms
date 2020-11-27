@@ -23,14 +23,14 @@ class Actor(object):
         self.actions = tf.placeholder(tf.float32, [None, self.action_dim])
         self.advantages = tf.placeholder(tf.float32, [None, 1])
 
-        # old policy pdf
+        # 이전 policy 확률밀도함수
         self.log_old_policy_pdf = tf.placeholder(tf.float32, [None, 1])
 
-        # current policy pdf
+        # 현재 policy 확률밀도함수
         mu_a, std_a = self.model.output
         log_policy_pdf = self.log_pdf(mu_a, std_a, self.actions)
 
-        # ratio of current and old policies
+        # 이전 policy 와  현재 policy 비율
         ratio = tf.exp(log_policy_pdf - self.log_old_policy_pdf)
         clipped_ratio = tf.clip_by_value(ratio, 1.0 - self.ratio_clipping, 1.0 + self.ratio_clipping)
         surrogate = -tf.minimum(ratio * self.advantages, clipped_ratio * self.advantages)
