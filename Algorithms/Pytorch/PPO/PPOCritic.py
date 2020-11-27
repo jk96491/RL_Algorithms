@@ -37,8 +37,10 @@ class Critic(nn.Module):
         td_target = torch.FloatTensor(td_target)
         predict = self.forward(states)
 
-        self.optimizer.zero_grad()
         loss = torch.mean((predict - td_target) **2)
+
+        self.optimizer.zero_grad()
+        loss.backward()
         self.optimizer.step()
 
         return loss

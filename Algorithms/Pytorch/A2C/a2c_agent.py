@@ -51,7 +51,7 @@ class A2Cagnet(object):
             actor_loss = 0
 
             while not done:
-                self.env.render()
+              #  self.env.render()
 
                 action = self.actor.get_action(convertToTensorInput(state, self.state_dim))
                 action = np.clip(action, -self.action_bound, self.action_bound)

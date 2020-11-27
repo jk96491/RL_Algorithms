@@ -37,9 +37,10 @@ class Critic(nn.Module):
     def Learn(self, states, td_target):
         td_target = torch.FloatTensor(td_target)
         predict = self.forward(states)
+        loss = torch.mean((predict - td_target) **2)
 
         self.optimizer.zero_grad()
-        loss = torch.mean((predict - td_target) **2)
+        loss.backward()
         self.optimizer.step()
 
         return loss

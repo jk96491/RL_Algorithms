@@ -63,7 +63,7 @@ class PPOAgent(object):
             state = self.env.reset()
 
             while not done:
-                self.env.render()
+                #self.env.render()
 
                 mu_old, std_old, action = self.actor.get_policy_action(convertToTensorInput(state, self.state_dim))
                 action = np.clip(action, -self.action_bound, self.action_bound)

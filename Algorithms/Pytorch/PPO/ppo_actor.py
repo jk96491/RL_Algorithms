@@ -75,8 +75,10 @@ class Actor(nn.Module):
         else:
             surrogate = ratio
 
-        self.optimizer.zero_grad()
         loss = surrogate
+
+        self.optimizer.zero_grad()
+        loss.backward()
         self.optimizer.step()
 
         return loss
