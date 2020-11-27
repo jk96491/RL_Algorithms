@@ -41,7 +41,7 @@ class Actor(nn.Module):
         std = std.clamp(self.std_bound[0], self.std_bound[1])
         var = std ** 2
         log_policy_pdf = - 0.5 * (((action - mu) ** 2 / var) + (torch.log(var * 2 * np.pi)))  # 가우시안 분포
-        return torch.sum(log_policy_pdf)
+        return log_policy_pdf
 
     def get_policy_action(self, state):
         mu_a, std_a = self.forward(state)
@@ -64,7 +64,7 @@ class Actor(nn.Module):
         mu, std = self.forward(states)
         log_policy_pdf = self.log_pdf(mu, std, actions)
 
-        ratio = torch.exp(log_policy_pdf - torch.sum(log_old_policy_pdf))
+        ratio = torch.exp(torch.sum(log_policy_pdf) - torch.sum(log_old_policy_pdf))
         clipped_ratio = ratio.clamp(1.0 - self.ratio_clipping, 1.0 + self.ratio_clipping)
 
         ratio = torch.sum(ratio * advantages)

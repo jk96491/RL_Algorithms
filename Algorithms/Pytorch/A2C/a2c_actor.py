@@ -40,7 +40,7 @@ class Actor(nn.Module):
         std = std.clamp(self.std_bound[0], self.std_bound[1])
         var = std ** 2
         log_policy_pdf = - 0.5 * (((action - mu) ** 2 / var) + (torch.log(var * 2 * np.pi)))  # 가우시안 분포
-        return torch.sum(log_policy_pdf)
+        return log_policy_pdf
 
     def get_action(self, state):
         mu_a, std_a = self.forward(state)
