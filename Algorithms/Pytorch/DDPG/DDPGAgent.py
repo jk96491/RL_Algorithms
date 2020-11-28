@@ -5,7 +5,6 @@ import copy
 from Pytorch.DDPG.Noise import OU_noise
 from collections import deque
 import random
-import numpy as np
 from Pytorch.Utils import convertToTensorInput
 
 batch_size = 128
