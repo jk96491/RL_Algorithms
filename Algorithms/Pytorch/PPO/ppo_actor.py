@@ -64,18 +64,11 @@ class Actor(nn.Module):
         mu, std = self.forward(states)
         log_policy_pdf = self.log_pdf(mu, std, actions)
 
-        ratio = torch.exp(torch.mean(log_policy_pdf) - torch.mean(log_old_policy_pdf))
+        ratio = torch.exp(log_policy_pdf - log_old_policy_pdf)
         clipped_ratio = ratio.clamp(1.0 - self.ratio_clipping, 1.0 + self.ratio_clipping)
 
-        ratio = torch.mean(-ratio * advantages)
-        clipped_ratio = torch.mean(-clipped_ratio * advantages)
-
-        if ratio >= clipped_ratio:
-            surrogate = clipped_ratio
-        else:
-            surrogate = ratio
-
-        loss = surrogate
+        surrogate = -torch.min(ratio * advantages, clipped_ratio * advantages)
+        loss = surrogate.mean()
 
         self.optimizer.zero_grad()
         loss.backward()

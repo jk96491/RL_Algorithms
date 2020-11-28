@@ -54,16 +54,14 @@ class PPOAgent(object):
         return unpack
 
     def train(self, max_episode_num):
-        for ep in range(max_episode_num):
-            batch_state, batch_action, batch_reward  = [], [], []
-            batch_log_old_policy_pdf = []
+        batch_state, batch_action, batch_reward = [], [], []
+        batch_log_old_policy_pdf = []
 
+        for ep in range(int(max_episode_num)):
             time, episode_reward, done = 0, 0, False
-
             state = self.env.reset()
 
             while not done:
-                #self.env.render()
 
                 mu_old, std_old, action = self.actor.get_policy_action(convertToTensorInput(state, self.state_dim))
                 action = np.clip(action, -self.action_bound, self.action_bound)
@@ -75,19 +73,18 @@ class PPOAgent(object):
                 next_state, reward, done, _ = self.env.step(action)
 
                 state = np.reshape(state, [1, self.state_dim])
-                next_state = np.reshape(next_state, [1, self.state_dim])
                 action = np.reshape(action, [1, self.action_dim])
                 reward = np.reshape(reward, [1, 1])
                 log_old_policy_pdf = np.reshape(log_old_policy_pdf, [1, 1])
 
                 batch_state.append(state)
                 batch_action.append(action)
-                batch_reward.append(reward)
+                batch_reward.append((reward + 8) / 8)
 
                 batch_log_old_policy_pdf.append(log_old_policy_pdf)
 
                 if len(batch_state) < self.BATCH_SIZE:
-                    state = next_state[0]
+                    state = next_state
                     episode_reward += reward[0]
                     time += 1
                     continue
@@ -106,10 +103,11 @@ class PPOAgent(object):
                 gaes, y_i = self.gae_target(rewards, v_values, next_v_value, done)
 
                 for _ in range(self.EPOCHS):
+                    # train
                     self.critic.Learn(convertToTensorInput(states, self.state_dim, states.shape[0]), y_i)
                     self.actor.Learn(log_old_policy_pdfs, convertToTensorInput(states, self.state_dim, states.shape[0]),actions, gaes)
 
-                state = next_state[0]
+                state = next_state
                 episode_reward += reward[0]
                 time += 1
 
