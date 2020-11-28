@@ -11,7 +11,7 @@ def main():
 
     agent.train(max_episode_num)
 
-    agent.plot_result()
+    agent.plot_Result()
 
 
 if __name__=="__main__":

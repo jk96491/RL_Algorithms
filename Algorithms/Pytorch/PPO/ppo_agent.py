@@ -16,6 +16,7 @@ class PPOAgent(object):
         self.RATIO_CLIPPING = 0.2
         self.EPOCHS = 10
         self.GAE_LAMBDA = 0.9  # 0.8
+        self.load_model = True
 
         self.env = env
         self.state_dim = env.observation_space.shape[0]
@@ -57,12 +58,16 @@ class PPOAgent(object):
         batch_state, batch_action, batch_reward = [], [], []
         batch_log_old_policy_pdf = []
 
+        if self.load_model is True:
+            self.actor.load_weights("pendulum_actor.th")
+            self.critic.load_weights("pendulum_critic.th")
+
         for ep in range(int(max_episode_num)):
             time, episode_reward, done = 0, 0, False
             state = self.env.reset()
 
             while not done:
-
+                #self.env.render()
                 mu_old, std_old, action = self.actor.get_policy_action(convertToTensorInput(state, self.state_dim))
                 action = np.clip(action, -self.action_bound, self.action_bound)
 
@@ -119,7 +124,7 @@ class PPOAgent(object):
                 self.actor.save_weights('pendulum_actor.th')
                 self.critic.save_weights('pendulum_critic.th')
 
-        np.savetxt('save_weights/pendulum_epi_reward.txt', self.save_epi_reward)
+        np.savetxt('pendulum_epi_reward.txt', self.save_epi_reward)
 
     def plot_Result(self):
         plt.plot(self.save_epi_reward)

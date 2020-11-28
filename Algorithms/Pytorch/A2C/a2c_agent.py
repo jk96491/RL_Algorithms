@@ -102,7 +102,7 @@ class A2Cagnet(object):
                 self.actor.save_weights('pendulum_actor.th')
                 self.critic.save_weights('pendulum_critic.th')
 
-        np.savetxt('save_weights/pendulum_epi_reward.txt', self.save_epi_reward)
+        np.savetxt('pendulum_epi_reward.txt', self.save_epi_reward)
 
     def plot_Result(self):
         plt.plot(self.save_epi_reward)
