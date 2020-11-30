@@ -1,4 +1,4 @@
-from Algorithms.Tensorflow.A3C.a3c_agent import A3Cagent
+from Tensorflow.A3C.a3c_agent import A3Cagent
 
 def main():
 
