@@ -27,7 +27,7 @@ for episode in range(max_episode):
 
         count = agent.store_transition(state, action, next_state, reward, False)
 
-        if count % 32 == 31:
+        if count % 16 == 15:
             loss_critic, loss_actor, loss_entropy = agent.update()
 
         state = next_state

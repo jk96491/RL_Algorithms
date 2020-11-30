@@ -41,8 +41,8 @@ class SAC:
         self.entropy_tune = entropy_tune
         if entropy_tune:
             self.target_entropy = -torch.prod(
-                torch.Tensor(self.env.action_space.shape)).item()
-            self.log_alpha = torch.tensor([0.2], requires_grad=True, device='cpu')
+                torch.Tensor(self.env.action_space.shape).to(self.device)).item()
+            self.log_alpha = torch.tensor([0.2], requires_grad=True, device=self.device)
             self.alpha = self.log_alpha.exp()
             self.alpha_optimizer = optim.Adam([self.log_alpha], lr=lr)
         else:
