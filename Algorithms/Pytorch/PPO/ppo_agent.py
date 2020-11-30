@@ -16,7 +16,7 @@ class PPOAgent(object):
         self.RATIO_CLIPPING = 0.2
         self.EPOCHS = 10
         self.GAE_LAMBDA = 0.9  # 0.8
-        self.load_model = True
+        self.load_model = False
 
         self.env = env
         self.state_dim = env.observation_space.shape[0]
@@ -34,7 +34,6 @@ class PPOAgent(object):
         gae = torch.zeros_like(rewards)
         gae_cumulative = 0
         forward_val = 0
-
 
         if not done:
             forward_val = next_v_value
@@ -67,7 +66,7 @@ class PPOAgent(object):
             state = self.env.reset()
 
             while not done:
-                self.env.render()
+                #self.env.render()
                 mu_old, std_old, action = self.actor.get_policy_action(convertToTensorInput(state, self.state_dim))
                 action = np.clip(action, -self.action_bound, self.action_bound)
 
@@ -114,6 +113,7 @@ class PPOAgent(object):
 
                 state = next_state
                 episode_reward += reward[0]
+
                 time += 1
 
             print('Episode: ', ep + 1, 'Time: ', time, 'Reward: ', episode_reward)
