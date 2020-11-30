@@ -67,7 +67,7 @@ class SAC:
         return action.cpu().numpy()[0]
 
     def update(self):
-        states, actions, next_states, rewards, terminals = self.memory.sample(batch_size=32)
+        states, actions, next_states, rewards, terminals = self.memory.sample(batch_size=256)
         loss_critic = self.update_critic(states, actions, next_states, rewards, terminals)
         loss_actor, loss_entropy = self.update_actor(states)
         self.update_target()

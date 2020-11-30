@@ -3,7 +3,7 @@ import torch
 
 
 class ReplayMemory:
-    def __init__(self, state_dim, action_dim, device='cpu', max_size=int(32)):
+    def __init__(self, state_dim, action_dim, device='cpu', max_size=int(1e+6)):
         self.max_size = max_size
         self.state_memory = torch.zeros((self.max_size, state_dim), dtype=torch.float, device=device)
         self.action_memory = torch.zeros((self.max_size, action_dim), dtype=torch.float, device=device)
@@ -21,15 +21,9 @@ class ReplayMemory:
         self.terminal_memory[index] = torch.from_numpy(np.array([1. - done]).astype(np.uint8))
         self.mem_ctrl += 1
 
-        need_reset = False
-        if self.mem_ctrl >= self.max_size:
-            need_reset = True
-            self.mem_ctrl = 0
-
-        return need_reset
-
     def sample(self, batch_size=256):
-        batch_idx = np.random.choice(1, batch_size)
+        mem_size = min(self.mem_ctrl, self.max_size)
+        batch_idx = np.random.choice(mem_size, batch_size)
 
         states = self.state_memory[batch_idx]
         actions = self.action_memory[batch_idx]

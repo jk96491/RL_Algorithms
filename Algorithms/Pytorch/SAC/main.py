@@ -25,9 +25,7 @@ for episode in range(max_episode):
         next_state, reward, done, _ = env.step(action * env.action_space.high[0])
         cumulative_reward += reward
 
-        if not agent.store_transition(state, action, next_state, reward, False):
-            time += 1
-            continue
+        agent.store_transition(state, action, next_state, reward, False)
         loss_critic, loss_actor, loss_entropy = agent.update()
 
         state = next_state
