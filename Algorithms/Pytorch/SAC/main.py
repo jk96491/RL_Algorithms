@@ -1,4 +1,3 @@
-from time import time
 import gym
 from Pytorch.SAC.Agent import SAC
 
@@ -13,7 +12,6 @@ max_episode = 1000
 
 # Train Step
 cumulative_reward = 0
-
 
 for episode in range(max_episode):
     done = False
